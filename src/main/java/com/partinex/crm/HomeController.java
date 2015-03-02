@@ -98,7 +98,7 @@ public class HomeController {
 		String clientName = request.getParameter("name");
 		ModelAndView model = new ModelAndView("searchList");
 		List<Client> listClients = clientDao.getByName(clientName);
-		//if(listClients == null) return clientNotFound();
+		if(listClients == null) return clientNotFound();
         model.addObject("clientList", listClients);
 		return model;
 	}
