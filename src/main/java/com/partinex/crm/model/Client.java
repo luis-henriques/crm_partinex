@@ -27,6 +27,17 @@ public class Client implements Serializable{
 	@Column(name="phone_number")
 	private int phoneNumber;
 	
+	public Client() {
+		super();
+	}
+	
+	public Client(int id, String name, int nif, String address, int phoneNumber) {
+		this.id = id;
+		this.name = name;
+		this.nif = nif;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+	}
 	
 	public int getId() {
 		return id;

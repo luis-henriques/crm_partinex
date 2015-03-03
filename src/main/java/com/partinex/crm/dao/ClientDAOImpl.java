@@ -14,6 +14,10 @@ public class ClientDAOImpl implements ClientDAO {
 	
 	private SessionFactory sessionFactory;
 	
+	public ClientDAOImpl() {
+		super();
+	}
+	
 	public ClientDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

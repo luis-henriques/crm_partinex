@@ -1,13 +1,48 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans 
-        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.2.xsd
     ">
- 
+    
+    <bean class="org.springframework.batch.test.JobLauncherTestUtils"/>
+    
     <context:component-scan base-package="com.partinex.crm" />
+    
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url"
+            value="jdbc:postgresql://localhost:5432/crmpartinex" />
+        <property name="username" value="postgres" />
+        <property name="password" value="9Q==N#g\2H" />
+    </bean>
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.partinex.crm.model.Client</value>
+            </list>
+        </property>
+    </bean>
+
+    <tx:annotation-driven />
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="clientDao" class="com.partinex.crm.dao.ClientDAOImpl">
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
  
 </beans>

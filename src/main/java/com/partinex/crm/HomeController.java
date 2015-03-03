@@ -37,6 +37,8 @@ public class HomeController {
 	@RequestMapping(value="/")
     public ModelAndView home() {
 		
+		
+		
 		logger.info("Welcome home!");
 		
         List<Client> listClients = clientDao.list();
